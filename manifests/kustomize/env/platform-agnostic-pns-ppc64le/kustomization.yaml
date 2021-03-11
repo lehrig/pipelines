@@ -1,0 +1,63 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+bases:
+  - ../platform-agnostic-pns
+
+# !!! If you want to customize the namespace,
+# please refer sample/cluster-scoped-resources to update the namespace for cluster-scoped-resources
+namespace: kubeflow
+
+# Used by Kustomize
+configMapGenerator:
+  - name: pipeline-install-config
+    env: params.env
+    behavior: merge
+
+images:
+- name: gcr.io/ml-pipeline/workflow-controller
+  newName: docker.io/mgiessing/workflow-controller
+  newTag: v2.8.2.ppc64le
+- name: gcr.io/ml-pipeline/argoexec
+  newName: docker.io/mgiessing/argoexec
+  newTag: v2.8.2.ppc64le
+- name: gcr.io/tfx-oss-public/ml_metadata_store_server
+  newName: docker.io/lehrig/ml_metadata_store_server
+  newTag: v0.21.1.ppc64le
+- name: gcr.io/ml-pipeline/metadata-envoy
+  newName: docker.io/lehrig/envoy
+  newTag: v0.1.32.ppc64le
+- name: gcr.io/ml-pipeline/minio
+  newName: docker.io/ibmcom/minio
+  newTag: RELEASE.2019-04-09T01-22-30Z.1
+- name: gcr.io/ml-pipeline/mysql
+  newName: docker.io/ibmcom/mariadb
+  newTag: 10.2.19
+- name: gcr.io/ml-pipeline/api-server
+  newName: docker.io/lehrig/api-server
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/persistenceagent
+  newName: docker.io/lehrig/persistent-agent
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/scheduledworkflow
+  newName: docker.io/lehrig/scheduledworkflow
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/frontend
+  newName: docker.io/lehrig/pipelines-ui
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/viewer-crd-controller
+  newName: docker.io/lehrig/pipelines-viewer
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/visualization-server
+  newName: docker.io/lehrig/visualization-server
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/metadata-writer
+  newName: docker.io/lehrig/metadata-writer
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/cache-deployer
+  newName: docker.io/lehrig/cache-deployer
+  newTag: v1.0.4.ppc64le
+- name: gcr.io/ml-pipeline/cache-server
+  newName: docker.io/lehrig/cache-server
+  newTag: v1.0.4.ppc64le
+ 
