@@ -15,6 +15,9 @@ configMapGenerator:
     behavior: merge
 
 images:
+- name: gcr.io/ml-pipeline/application-crd-controller
+  newName: docker.io/lehrig/application
+  newTag: 7b313bc.ppc64le
 - name: gcr.io/ml-pipeline/workflow-controller
   newName: docker.io/mgiessing/workflow-controller
   newTag: v2.8.2.ppc64le
